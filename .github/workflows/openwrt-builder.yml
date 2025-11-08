@@ -37,19 +37,19 @@ jobs:
     - name: Checkout
       uses: actions/checkout@main
 
-    #- name: Free space
-      #uses: jlumbroso/free-disk-space@main
-      #with:
+    - name: Free space
+      uses: jlumbroso/free-disk-space@main
+      with:
         # this might remove tools that are actually needed,
         # if set to "true" but frees about 6 GB
-        #tool-cache: true
+        tool-cache: true
         # all of these default to true, but feel free to set to
         # "false" if necessary for your workflow
-        #android: true
-        #dotnet: true
-        #haskell: true
-        #large-packages: true
-        #swap-storage: true
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        swap-storage: true
 
     - name: Initialization environment
       env:
@@ -103,12 +103,12 @@ jobs:
         find dl -size -1024c -exec rm -f {} \;
         echo "status=success" >> $GITHUB_OUTPUT
 
-    - name: Upload dl directory
-      uses: actions/upload-artifact@main
-      if: steps.package.outputs.status == 'success' && env.UPLOAD_DL_DIR == 'true'
-      with:
-        name: OpenWrt_dl${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: openwrt/dl
+    #- name: Upload dl directory
+     # uses: actions/upload-artifact@main
+      #if: steps.package.outputs.status == 'success' && env.UPLOAD_DL_DIR == 'true'
+      #with:
+       # name: OpenWrt_dl${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        #path: openwrt/dl
 
     - name: Compile the firmware
       id: compile
