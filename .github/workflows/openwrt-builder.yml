@@ -101,6 +101,7 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+        echo "status=success" >> $GITHUB_OUTPUT
 
     - name: Upload dl directory
       uses: actions/upload-artifact@main
