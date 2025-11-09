@@ -23,7 +23,7 @@ env:
   CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
-  #UPLOAD_DL_DIR: true
+  UPLOAD_DL_DIR: false
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: false
@@ -103,12 +103,12 @@ jobs:
         find dl -size -1024c -exec rm -f {} \;
         echo "status=success" >> $GITHUB_OUTPUT
 
-    #- name: Upload dl directory
-     # uses: actions/upload-artifact@main
-      #if: steps.package.outputs.status == 'success' && env.UPLOAD_DL_DIR == 'true'
-      #with:
-       # name: OpenWrt_dl${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        #path: openwrt/dl
+    - name: Upload dl directory
+      uses: actions/upload-artifact@main
+      if: steps.package.outputs.status == 'success' && env.UPLOAD_DL_DIR == 'true'
+      with:
+        name: OpenWrt_dl${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: openwrt/dl
 
     - name: Compile the firmware
       id: compile
